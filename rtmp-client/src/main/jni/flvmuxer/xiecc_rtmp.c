@@ -277,10 +277,13 @@ int rtmp_sender_write_audio_frame(uint8_t *data,
 
         //flv VideoTagBody --AudioSpecificConfig
         //    uint8_t audio_object_type = rtmp_xiecc->config.audio_object_type;
-        output[offset++] = data[0]; //(audio_object_type << 3)|(rtmp_xiecc->config.sample_frequency_index >> 1);
-        output[offset++] = data[1]; //((rtmp_xiecc->config.sample_frequency_index & 0x01) << 7) \
+        //output[offset++] = data[0]; //(audio_object_type << 3)|(rtmp_xiecc->config.sample_frequency_index >> 1);
+        //output[offset++] = data[1]; //((rtmp_xiecc->config.sample_frequency_index & 0x01) << 7) \
                            //| (rtmp_xiecc->config.channel_configuration << 3) ;
         //no need to set pre_tag_size
+        
+        output[offset++] = 0x12;
+        output[offset++] = 0x10;
 
         uint32_t fff = body_len + FLV_TAG_HEAD_LEN;
         output[offset++] = (uint8_t)(fff >> 24); //data len
