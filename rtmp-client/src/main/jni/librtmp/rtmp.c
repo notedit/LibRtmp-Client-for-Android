@@ -945,6 +945,14 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service)
 	    __FUNCTION__, r->Link.timeout);
       }
   }
+  
+  
+  /* set send buffer*/
+  
+  int sendbuff = 196608;
+
+  printf("sets the send buffer to %d\n", sendbuff);
+  setsockopt(r->m_sb.sb_socket, SOL_SOCKET, SO_SNDBUF, &sendbuff, sizeof(sendbuff));
 
   setsockopt(r->m_sb.sb_socket, IPPROTO_TCP, TCP_NODELAY, (char *) &on, sizeof(on));
 
